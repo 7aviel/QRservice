@@ -16,24 +16,35 @@ import java.awt.image.BufferedImage;
 public class MainController {
 
     @GetMapping("/health")
-    public ResponseEntity<HttpStatus> getHealth(){
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> getHealth() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/qrcode")
-    public ResponseEntity<BufferedImage> qrCode(@RequestParam int size, String type){
+    public ResponseEntity<?> qrCode(@RequestParam int size, String type) {
+        if (size > 350 || size < 150) {
+            return ResponseEntity.badRequest().body("{error: Image size must be between 150 and 350 pixels}");
+        }
         BufferedImage image = new BufferedImage(250, 250, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = image.createGraphics();
         g.setColor(Color.WHITE);
-        if (size < 350 && size > 150) {
-            g.fillRect(0, 0, size, size);
-        } else if(type.equals("png")){
-
+        g.fillRect(0, 0, size, size);
+        MediaType mediaType;
+        switch (type.toLowerCase()) {
+            case "png":
+                mediaType = MediaType.IMAGE_PNG;
+                break;
+            case "jpeg":
+            case "jpg":
+                mediaType = MediaType.IMAGE_JPEG;
+                break;
+            case "gif":
+                mediaType = MediaType.IMAGE_GIF;
+                break;
+            default:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error: Only PNG, JPEG, and GIF formats are supported");
         }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(image);
+        return ResponseEntity.ok().contentType(mediaType).body(image);
     }
 
 }
