@@ -13,7 +13,6 @@ public class QrServiceException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\n \"error\": "+"\""+
                 e.getMessage()+"\""+"\n}");
     }
-
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<?> imageTypeHandler(NullPointerException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\n \"error\": "+"\""+

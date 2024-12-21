@@ -1,4 +1,4 @@
-package com.project.qrservice.Controller;
+package com.project.qrservice.controller;
 
 import com.project.qrservice.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 @RestController()
 @RequestMapping("/api")
@@ -30,9 +30,17 @@ public class MainController {
     }
 
     @GetMapping("/qrcode")
-    public ResponseEntity<?> qrCode(@RequestParam int size, String type) {
-        BufferedImage image = this.imageService.getImage(size);
-        MediaType mediaType = this.imageService.getMediaType(type);
+    public ResponseEntity<?> qrCode(Integer size,
+                                    String type,
+                                    String correction,
+                                    @RequestParam String content) {
+        BufferedImage image;
+        MediaType mediaType;
+        if(content.isEmpty()){
+            throw new IllegalArgumentException("Content cannot be empty or null");
+        }
+        image = this.imageService.getImage(Objects.requireNonNullElse(size, 250), content, correction);
+        mediaType = this.imageService.getMediaType(Objects.requireNonNullElse(type, "png"));
         return ResponseEntity.ok().contentType(mediaType).body(image);
     }
 
