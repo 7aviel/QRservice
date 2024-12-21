@@ -1,5 +1,4 @@
 package com.project.qrservice.service;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -9,7 +8,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
@@ -21,7 +19,6 @@ public class ImageService {
             throw new IllegalArgumentException("Image size must be between 150 and 350 pixels");
         }
         QRCodeWriter codeWriter = new QRCodeWriter();
-
        Map<EncodeHintType,?> hints = Map.of(EncodeHintType.ERROR_CORRECTION, getCorrectionLevel(c));
         try{
             BitMatrix bitMatrix = codeWriter.encode(content, BarcodeFormat.QR_CODE, size, size, hints);
