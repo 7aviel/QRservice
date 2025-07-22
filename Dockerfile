@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the build output (JAR file) into the container
 COPY . .
 
+# Grant executable permissions to the Gradle wrapper
+RUN chmod +x ./gradlew
+
 # Run the Gradle build to create the JAR file
 RUN ./gradlew clean build --no-daemon
 
