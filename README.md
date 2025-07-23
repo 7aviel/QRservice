@@ -32,13 +32,13 @@ To run this project locally, follow these steps:
     ```sh
     cd qr-code-generator-api
     ```
-3. Build the project using Maven:
+3. Build the project using gradle:
     ```sh
-    mvn clean install
+    gradle clean build
     ```
 4. Run the Spring Boot application:
     ```sh
-    mvn spring-boot:run
+    gradle bootRun
     ```
 
 ## Usage
