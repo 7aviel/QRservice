@@ -26,11 +26,11 @@ To run this project locally, follow these steps:
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/qr-code-generator-api.git
+    git clone https://github.com/7aviel/QRservice.git
     ```
 2. Navigate to the project directory:
     ```sh
-    cd qr-code-generator-api
+    cd QrService
     ```
 3. Build the project using gradle:
     ```sh
