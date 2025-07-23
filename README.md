@@ -30,7 +30,7 @@ To run this project locally, follow these steps:
     ```
 2. Navigate to the project directory:
     ```sh
-    cd QrService
+    cd QRService
     ```
 3. Build the project using gradle:
     ```sh
@@ -61,7 +61,11 @@ Once the application is running, you can use the API to generate QR codes.
 - **Parameters:**
   - `size` (Integer) - The size of the QR code (optional, default is 250)
   - `type` (String) - The image type of the QR code (optional, default is "png")
-  - `correction` (String) - The error correction level (optional)
+  - `correction` (String) - The error correction level (optional). Accepted values are L, M, Q, H:
+    - `L` - Low (7% of codewords can be restored)
+    - `M` - Medium (15% of codewords can be restored)
+    - `Q` - Quartile (25% of codewords can be restored)
+    - `H` - High (30% of codewords can be restored)
   - `content` (String) - The content to encode in the QR code (required)
 - **Response:** A QR code image in the specified format.
 
